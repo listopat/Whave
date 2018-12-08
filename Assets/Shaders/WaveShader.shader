@@ -5,12 +5,19 @@
 	}
 
 	SubShader {
+
+		Tags { "RenderType" = "Transparent" "IgnoreProjector" = "True" "Queue" = "Transparent" }
+
 		Pass {
+			ZWrite Off
+			Blend SrcAlpha OneMinusSrcAlpha
+			
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
 			
 			#include "UnityCG.cginc"
+
 
 			sampler2D _MainTex;
 
@@ -34,10 +41,8 @@
 			float2 dist;
 
 			float4 frag(Interpolators i) : SV_TARGET{
-				clip(i.uv[0] - 0.5);
 				float dist = distance(i.uv, float2(0.5, 0.5));
-				clip(dist - 0.3);
-				return step(0.25, dist) * float4(0.5, 0.5, step(0.4, dist), 1);
+				return float4(0.5, 0.5, 1.0, step(0.5, i.uv[0]) * step(0.4, dist));
 			}
 
 			ENDCG
