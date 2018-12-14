@@ -38,11 +38,14 @@
 				return i;
 			}
 
-			float2 dist;
 
-			float4 frag(Interpolators i) : SV_TARGET{
+			float4 frag(Interpolators i) : SV_TARGET {
 				float dist = distance(i.uv, float2(0.5, 0.5));
-				return float4(0.5, 0.5, 1.0, step(0.5, i.uv[0]) * step(0.4, dist));
+				
+				float3 color = float3(0.71, 0.34, 0.34) * smoothstep(0.0, 0.004, abs(dist - 0.45)) * smoothstep(0.0, 0.004, abs(0.5 - dist));
+				float transparency = step(0.5, i.uv[0]) * step(0.45, dist);
+
+				return float4(color, transparency);
 			}
 
 			ENDCG
