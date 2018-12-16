@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Wave : MonoBehaviour {
 
-    [SerializeField] private float moveSpeed;
+    public float moveSpeed { get; set; }
+    public Vector3 direction { get; set;}
 
 	// Use this for initialization
 	void Start () {
@@ -13,11 +14,12 @@ public class Wave : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+        transform.position += direction * moveSpeed * Time.deltaTime;
 	}
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("trigger wave");
+        //Debug.Log("trigger wave");
     }
+
 }

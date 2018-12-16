@@ -4,13 +4,24 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    [SerializeField] private Ball leftBall;
+    [SerializeField] private Ball rightBall;
+
+    [SerializeField] private WaveController waveController;
+    [SerializeField] private StageConfig[] stageConfigs;
+
+    private int score = 0;
+
+    void Start () {
+        waveController.SetConfig(stageConfigs[0]);
+    }
 	
-	// Update is called once per frame
 	void Update () {
-		
-	}
+
+    }
+
+    void WaveBlocked()
+    {
+        score += 1;
+    }
 }

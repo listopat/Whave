@@ -16,6 +16,6 @@ public class Ball : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("trigger ball");
+        //Debug.Log("trigger ball");
     }
 }
