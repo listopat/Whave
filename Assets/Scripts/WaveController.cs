@@ -9,7 +9,7 @@ public class WaveController : MonoBehaviour {
 
     [SerializeField] private Transform leftBall;
     [SerializeField] private Transform rightBall;
-    [SerializeField] private float ballXAxisOffset;
+    [SerializeField] Color[] waveColors;
 
     private Vector3 leftSpawn = new Vector3(-22, -20, 0);
     private Vector3 rightSpawn = new Vector3(22, 20, 0);
@@ -45,7 +45,7 @@ public class WaveController : MonoBehaviour {
     {
         
         Pattern pattern = currentConfig.patterns[Random.Range(0, currentConfig.patterns.Length)];
-        Debug.Log(pattern);
+        Color patternColor = waveColors[Random.Range(0, waveColors.Length)];
 
         int offsetsSum = 0;
         float firstWaveTimeToReach = 0;
@@ -53,7 +53,7 @@ public class WaveController : MonoBehaviour {
         for (int i = 0; i < pattern.waves.Length; i++)
         {
             Wave wave = waveFactory.getWave();
-            ConfigureWave(wave);
+            ConfigureWave(wave, patternColor);
             
             
             Transform ball = pattern.waves[i].side == Side.Left ? leftBall : rightBall;
@@ -70,7 +70,7 @@ public class WaveController : MonoBehaviour {
         
     }
 
-    void ConfigureWave(Wave wave)
+    void ConfigureWave(Wave wave, Color color)
     {
         if (currentConfig.randomizerEnabled)
         {
@@ -79,6 +79,8 @@ public class WaveController : MonoBehaviour {
         {
             wave.moveSpeed = currentConfig.regularSpeed;
         }
+
+        wave.GetComponent<Renderer>().material.SetColor("_Tint", color);
     }
 
     void PositionWave(Wave wave, Transform ball, Vector3 spawnPosition, int offset, float firstWaveTimeToReach)

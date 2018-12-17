@@ -2,6 +2,7 @@
 {
 	Properties {
 		_MainTex ("Texture", 2D) = "white" {}
+		_Tint ("Tint", Color) = (1, 1, 1, 1)
 	}
 
 	SubShader {
@@ -18,7 +19,7 @@
 			
 			#include "UnityCG.cginc"
 
-
+			float4 _Tint;
 			sampler2D _MainTex;
 
 			struct Interpolators {
@@ -42,7 +43,7 @@
 			float4 frag(Interpolators i) : SV_TARGET {
 				float dist = distance(i.uv, float2(0.5, 0.5));
 				
-				float3 color = float3(0.71, 0.34, 0.34);
+				float3 color = float3(_Tint.r, _Tint.g, _Tint.b);
 				float transparency = step(0.5, i.uv[0]) * (smoothstep(0.445, 0.45, dist) - smoothstep(0.495, 0.5, dist));
 
 				return float4(color, transparency);
