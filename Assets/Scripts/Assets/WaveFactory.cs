@@ -22,6 +22,6 @@ public class WaveFactory : ScriptableObject {
 
     public void DestroyWave(Wave wave)
     {
-
+        Destroy(wave.gameObject);
     }
 }

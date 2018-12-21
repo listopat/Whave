@@ -9,9 +9,15 @@ public class Wave : MonoBehaviour {
 
     private WaveFactory waveFactory;
 
+    private Rigidbody2D rb;
+    private Material material;
+
 	void Start () {
-       GetComponent<Rigidbody2D>().velocity = direction * moveSpeed;
-	}
+       rb = GetComponent<Rigidbody2D>();
+       rb.velocity = direction * moveSpeed;
+
+       material = GetComponent<Renderer>().material;
+    }
 	
     public void SetFactory(WaveFactory waveFactory)
     {
@@ -20,6 +26,17 @@ public class Wave : MonoBehaviour {
 
     public void DestroyWave()
     {
+        rb.velocity = Vector2.zero;
+        StartCoroutine("DisintegrateWave");
+    }
+
+    IEnumerator DisintegrateWave()
+    {
+        for (float f = 0.05f; f <= 1.0; f += 0.05f)
+        {
+            material.SetFloat("_Dissolve", f);
+            yield return null;
+        }
         waveFactory.DestroyWave(this);
     }
 }

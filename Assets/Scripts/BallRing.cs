@@ -21,12 +21,12 @@ public class BallRing : MonoBehaviour {
     {
         if (isLeft && game.IsLeftBallHitPressed)
         {
-            Destroy(other.gameObject);
+            other.GetComponent<Wave>().DestroyWave();
             game.WaveBlocked();
         }
         else if (!isLeft && game.IsRightBallHitPressed)
         {
-            Destroy(other.gameObject);
+            other.GetComponent<Wave>().DestroyWave();
             game.WaveBlocked();
         }
     }
