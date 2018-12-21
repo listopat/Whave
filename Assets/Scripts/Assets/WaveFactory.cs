@@ -19,4 +19,9 @@ public class WaveFactory : ScriptableObject {
         waves.Add(wave);
         return wave;
     }
+
+    public void DestroyWave(Wave wave)
+    {
+
+    }
 }

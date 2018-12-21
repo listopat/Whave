@@ -11,16 +11,31 @@ public class WaveController : MonoBehaviour {
     [SerializeField] private Transform rightBall;
     [SerializeField] Color[] waveColors;
 
-    private Vector3 leftSpawn = new Vector3(-22, -20, 0);
-    private Vector3 rightSpawn = new Vector3(22, 20, 0);
+    private Vector3 leftSpawn = new Vector3(-22, 0, 0);
+    private Vector3 rightSpawn = new Vector3(22, 0, 0);
 
     private StageConfig currentConfig;
     private float timeToNextPattern = 0;
 
     private readonly float waveRadius = 5f;
-    private readonly float ballRadius = 0.5f;
+    private readonly float ballRadius = 0.4f;
+
+    public bool IsRunning { get; set; }
+
+    void Start()
+    {
+        IsRunning = false;
+    }
 
     void Update()
+    {
+        if (IsRunning)
+        {
+            SpawnLoop();
+        }
+    }
+
+    private void SpawnLoop()
     {
         timeToNextPattern -= Time.deltaTime;
 
@@ -72,6 +87,8 @@ public class WaveController : MonoBehaviour {
 
     void ConfigureWave(Wave wave, Color color)
     {
+        wave.SetFactory(waveFactory);
+
         if (currentConfig.randomizerEnabled)
         {
 
