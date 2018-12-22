@@ -47,6 +47,9 @@ TagManager:
   - name: Foreground
     uniqueID: 2152067151
     locked: 0
+  - name: Particles
+    uniqueID: 3509236553
+    locked: 0
   - name: Deathscreen
     uniqueID: 3137922841
     locked: 0

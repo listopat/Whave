@@ -62,4 +62,9 @@ public class Wave : MonoBehaviour {
         }
         waveController.Reclaim(this);
     }
+
+    public Color GetCurrentColor()
+    {
+        return material.GetColor("_Tint");
+    }
 }

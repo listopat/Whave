@@ -7,6 +7,14 @@ public class BallRing : MonoBehaviour {
     [SerializeField] private GameController game;
     [SerializeField] private bool isLeft;
 
+    [SerializeField] private Hit hitEffect;
+    ParticleSystem hitParticleSystem;
+
+    private void Awake()
+    {
+        hitParticleSystem = hitEffect.GetComponent<ParticleSystem>();
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         CheckInput(other);
@@ -21,12 +29,18 @@ public class BallRing : MonoBehaviour {
     {
         if (isLeft && game.IsLeftBallHitPressed)
         {
-            other.GetComponent<Wave>().DestroyWave();
+            Wave wave = other.GetComponent<Wave>();
+            hitEffect.SetColorForParticles(wave.GetCurrentColor());
+            hitParticleSystem.Play();
+            wave.DestroyWave();
             game.WaveBlocked();
         }
         else if (!isLeft && game.IsRightBallHitPressed)
         {
-            other.GetComponent<Wave>().DestroyWave();
+            Wave wave = other.GetComponent<Wave>();
+            hitEffect.SetColorForParticles(wave.GetCurrentColor());
+            hitParticleSystem.Play();
+            wave.DestroyWave();
             game.WaveBlocked();
         }
     }
