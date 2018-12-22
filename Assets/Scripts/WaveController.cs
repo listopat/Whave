@@ -22,9 +22,12 @@ public class WaveController : MonoBehaviour {
 
     public bool IsRunning { get; set; }
 
+    private List<Wave> waves;
+
     void Start()
     {
         IsRunning = false;
+        waves = new List<Wave>();
     }
 
     void Update()
@@ -69,8 +72,7 @@ public class WaveController : MonoBehaviour {
         {
             Wave wave = waveFactory.getWave();
             ConfigureWave(wave, patternColor);
-            
-            
+
             Transform ball = pattern.waves[i].side == Side.Left ? leftBall : rightBall;
             Vector3 spawnPosition = pattern.waves[i].side == Side.Left ? leftSpawn : rightSpawn;
             offsetsSum += pattern.waves[i].offset;
@@ -81,36 +83,43 @@ public class WaveController : MonoBehaviour {
             }
 
             PositionWave(wave, ball, spawnPosition, offsetsSum, firstWaveTimeToReach);
+
+            waves.Add(wave);
         }
         
     }
 
     void ConfigureWave(Wave wave, Color color)
     {
-        wave.SetFactory(waveFactory);
-
-        if (currentConfig.randomizerEnabled)
-        {
-
-        } else
-        {
-            wave.moveSpeed = currentConfig.regularSpeed;
-        }
-
-        wave.GetComponent<Renderer>().material.SetColor("_Tint", color);
+        wave.Configure(this, color, currentConfig.regularSpeed);
     }
 
     void PositionWave(Wave wave, Transform ball, Vector3 spawnPosition, int offset, float firstWaveTimeToReach)
     {
         Vector3 direction = Vector3.Normalize(ball.position - spawnPosition);
-        wave.direction = direction;
-
+        
         Transform waveTransform = wave.transform;
         float timeToReach = firstWaveTimeToReach + offset * currentConfig.waveDelay;
         waveTransform.position = -direction * (timeToReach * wave.moveSpeed + waveRadius + ballRadius) + ball.position;
 
         float angleInDegrees = Mathf.Rad2Deg * Mathf.Atan2(waveTransform.position.y - ball.position.y, waveTransform.position.x - ball.position.y);
         waveTransform.Rotate(new Vector3(0, 0, angleInDegrees + 180));
+
+        wave.TakeOff(direction);
     }
 
+    public void Reclaim(Wave wave)
+    {
+        waves.Remove(wave);
+        waveFactory.Reclaim(wave);
+    }
+
+    public void StopRunning()
+    {
+        IsRunning = false;
+        for (int i = 0; i <= waves.Count - 1; i++)
+        {
+            waves[i].DestroyWave();
+        }
+    }
 }

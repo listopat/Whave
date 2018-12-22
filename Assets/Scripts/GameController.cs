@@ -129,8 +129,8 @@ public class GameController : MonoBehaviour {
     public void StopGame()
     {
         gameInProgress = false;
-        waveController.IsRunning = false;
-
+        waveController.StopRunning();
+        
         if (score > highScore)
         {
             highScore = score;
