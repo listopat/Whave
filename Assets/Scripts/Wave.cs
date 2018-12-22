@@ -14,6 +14,13 @@ public class Wave : MonoBehaviour {
 
     private Transform originalTransform;
 
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        material = GetComponent<Renderer>().material;
+        col = GetComponent<Collider2D>();
+    }
+
     public void Reset()
     {
         material.SetFloat("_Dissolve", 0.0f);
@@ -21,10 +28,7 @@ public class Wave : MonoBehaviour {
     }
 
     public void Configure(WaveController waveController, Color color, float speed)
-    {
-        rb = rb ?? GetComponent<Rigidbody2D>();
-        material = material ?? GetComponent<Renderer>().material;
-        col = col ?? GetComponent<Collider2D>();
+    {   
         this.waveController = waveController;
         material.SetColor("_Tint", color);
         moveSpeed = speed;
@@ -50,7 +54,7 @@ public class Wave : MonoBehaviour {
 
     IEnumerator DisintegrateWave()
     {
-        for (float f = 0.05f; f <= 1.0; f += 0.05f)
+        for (float f = 0.045f; f <= 1.0; f += 0.045f)
         {
             material.SetFloat("_Dissolve", f);
             yield return null;
