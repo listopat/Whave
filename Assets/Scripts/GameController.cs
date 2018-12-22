@@ -39,6 +39,10 @@ public class GameController : MonoBehaviour {
     }
 	
 	void Update () {
+        #if UNITY_ANDROID
+        CheckForQuit();
+        #endif
+
         if (gameInProgress)
         {
             GameUpdate();
@@ -59,6 +63,17 @@ public class GameController : MonoBehaviour {
 
     private void GameUpdate()
     {
+        #if UNITY_ANDROID
+        MobileGameUpdate();
+        #endif
+
+        #if UNITY_EDITOR
+        DesktopGameUpdate();
+        #endif
+    }
+
+    private void DesktopGameUpdate()
+    {
         if (Input.GetKeyDown(leftBallHit) && !IsLeftBallHitPressed)
         {
             IsLeftBallHitPressed = true;
@@ -70,7 +85,53 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    private void MobileGameUpdate()
+    {
+        for (int i = 0; i < Input.touchCount; ++i)
+        {
+            Touch touch = Input.GetTouch(i);
+            if (touch.position.x < Screen.width / 2 && touch.phase == TouchPhase.Began && !IsLeftBallHitPressed)
+            {
+                IsLeftBallHitPressed = true;
+            }
+
+            if (touch.position.x > Screen.width / 2 && touch.phase == TouchPhase.Began && !IsRightBallHitPressed)
+            {
+                IsRightBallHitPressed = true;
+            }
+        }
+    }
+
     private void DeathScreenUpdate()
+    {
+        #if UNITY_ANDROID
+        MobileDeathScreenUpdate();
+        #endif
+
+        #if UNITY_EDITOR
+        DesktopDeathScreenUpdate();
+        #endif
+    }
+
+    private void MobileDeathScreenUpdate()
+    {
+        if (timeSinceDeath > startAfterDeathDelay)
+        {
+            for (int i = 0; i < Input.touchCount; ++i)
+            {
+                if (Input.GetTouch(i).phase == TouchPhase.Began)
+                {
+                    NewGame();
+                }
+            }
+        }
+        else
+        {
+            timeSinceDeath += Time.deltaTime;
+        }
+    }
+
+    private void DesktopDeathScreenUpdate()
     {
         if (Input.GetKeyDown(leftBallHit) && timeSinceDeath > startAfterDeathDelay)
         {
@@ -108,6 +169,15 @@ public class GameController : MonoBehaviour {
             {
                 rightGracePeriodCounter++;
             }
+        }
+    }
+
+    private void CheckForQuit()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
+            activity.Call<bool>("moveTaskToBack", true);
         }
     }
 

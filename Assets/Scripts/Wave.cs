@@ -23,6 +23,7 @@ public class Wave : MonoBehaviour {
 
     public void Reset()
     {
+        transform.rotation = Quaternion.identity;
         material.SetFloat("_Dissolve", 0.0f);
         col.enabled = true;
     }
