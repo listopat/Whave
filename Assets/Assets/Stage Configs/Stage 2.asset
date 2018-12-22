@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patterns:
   - {fileID: 11400000, guid: d758abd0c7f882a449322df20349a288, type: 2}
-  patternDelay: 7.5
+  patternDelay: 3
   waveDelay: 0.35
   regularSpeed: 5
   scoreToActivate: 0
