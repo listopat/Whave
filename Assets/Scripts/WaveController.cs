@@ -71,11 +71,19 @@ public class WaveController : MonoBehaviour {
         for (int i = 0; i < pattern.waves.Length; i++)
         {
             Wave wave = waveFactory.getWave();
-            ConfigureWave(wave, patternColor);
+            if(i == 0)
+            {
+                ConfigureWave(wave, patternColor, false);
+            } else
+            {
+                ConfigureWave(wave, patternColor, pattern.randomizableSpeed);
+            }
 
             Transform ball = pattern.waves[i].side == Side.Left ? leftBall : rightBall;
             Vector3 spawnPosition = pattern.waves[i].side == Side.Left ? leftSpawn : rightSpawn;
             offsetsSum += pattern.waves[i].offset;
+            spawnPosition = RotateSpawnPoint(spawnPosition, ball.position);
+            
 
             if (i == 0)
             {
@@ -89,9 +97,19 @@ public class WaveController : MonoBehaviour {
         
     }
 
-    void ConfigureWave(Wave wave, Color color)
+    Vector3 RotateSpawnPoint(Vector3 spawnPoint, Vector3 pivot)
     {
-        wave.Configure(this, color, currentConfig.regularSpeed);
+       return Quaternion.Euler(0.0f, 0.0f, Random.Range(-currentConfig.spawnAngle, currentConfig.spawnAngle)) * (spawnPoint - pivot) + pivot;
+    }
+
+    void ConfigureWave(Wave wave, Color color, bool speedIsRandomizable)
+    {
+        float speed = currentConfig.regularSpeed;
+        if (speedIsRandomizable && Random.Range(0.0f, 1.0f) >= 0.70f)
+        {
+            speed *= currentConfig.randomSpeedMultiplier;
+        }
+        wave.Configure(this, color, speed);
     }
 
     void PositionWave(Wave wave, Transform ball, Vector3 spawnPosition, int offset, float firstWaveTimeToReach)

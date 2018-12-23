@@ -17,7 +17,5 @@ MonoBehaviour:
   waveDelay: 0.35
   regularSpeed: 5
   scoreToActivate: 0
-  randomizerEnabled: 0
-  randomSettings:
-    minSpeed: 0
-    maxSpeed: 0
+  randomSpeedMultiplier: 1.8
+  spawnAngle: 20

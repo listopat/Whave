@@ -20,4 +20,4 @@ MonoBehaviour:
     side: 0
   - offset: 0
     side: 1
-  randomizableSpeed: 0
+  randomizableSpeed: 1
