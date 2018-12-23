@@ -7,7 +7,7 @@ public class WaveFactory : MonoBehaviour {
 
     private List<Wave> pool;
 
-    void Awake ()
+    private void Awake ()
     {
         pool = new List<Wave>();
     }

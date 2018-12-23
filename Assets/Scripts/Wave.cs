@@ -14,7 +14,7 @@ public class Wave : MonoBehaviour {
 
     private Transform originalTransform;
 
-    void Awake()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         material = GetComponent<Renderer>().material;
@@ -53,7 +53,7 @@ public class Wave : MonoBehaviour {
         StartCoroutine("DisintegrateWave");
     }
 
-    IEnumerator DisintegrateWave()
+    private IEnumerator DisintegrateWave()
     {
         for (float f = 0.045f; f <= 1.0; f += 0.045f)
         {

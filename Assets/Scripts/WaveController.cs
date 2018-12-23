@@ -24,13 +24,13 @@ public class WaveController : MonoBehaviour {
 
     private List<Wave> waves;
 
-    void Start()
+    private void Start()
     {
         IsRunning = false;
         waves = new List<Wave>();
     }
 
-    void Update()
+    private void Update()
     {
         if (IsRunning)
         {
@@ -59,7 +59,7 @@ public class WaveController : MonoBehaviour {
     }
 
     
-    void CreatePattern()
+    private void CreatePattern()
     {
         
         Pattern pattern = currentConfig.patterns[Random.Range(0, currentConfig.patterns.Length)];
@@ -97,12 +97,12 @@ public class WaveController : MonoBehaviour {
         
     }
 
-    Vector3 RotateSpawnPoint(Vector3 spawnPoint, Vector3 pivot)
+    private Vector3 RotateSpawnPoint(Vector3 spawnPoint, Vector3 pivot)
     {
        return Quaternion.Euler(0.0f, 0.0f, Random.Range(-currentConfig.spawnAngle, currentConfig.spawnAngle)) * (spawnPoint - pivot) + pivot;
     }
 
-    void ConfigureWave(Wave wave, Color color, bool speedIsRandomizable)
+    private void ConfigureWave(Wave wave, Color color, bool speedIsRandomizable)
     {
         float speed = currentConfig.regularSpeed;
         if (speedIsRandomizable && Random.Range(0.0f, 1.0f) >= 0.70f)
@@ -112,7 +112,7 @@ public class WaveController : MonoBehaviour {
         wave.Configure(this, color, speed);
     }
 
-    void PositionWave(Wave wave, Transform ball, Vector3 spawnPosition, int offset, float firstWaveTimeToReach)
+    private void PositionWave(Wave wave, Transform ball, Vector3 spawnPosition, int offset, float firstWaveTimeToReach)
     {
         Vector3 direction = Vector3.Normalize(ball.position - spawnPosition);
         

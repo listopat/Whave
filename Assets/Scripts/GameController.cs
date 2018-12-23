@@ -37,12 +37,12 @@ public class GameController : MonoBehaviour {
     private int currentStageIndex;
     private int stagesCount;
 
-    void Start () {
+    private void Start () {
         stagesCount = stageConfigs.Length;
         gameInProgress = false;
     }
 	
-	void Update () {
+	private void Update () {
         #if UNITY_ANDROID
         CheckForQuit();
         #endif
@@ -57,7 +57,7 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (gameInProgress)
         {
@@ -185,7 +185,7 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    public void NewGame()
+    private void NewGame()
     {
         waveController.SetConfig(stageConfigs[0]);
         currentStageIndex = 0;
@@ -229,7 +229,6 @@ public class GameController : MonoBehaviour {
         {
             if(score >= stageConfigs[currentStageIndex + 1].scoreToActivate)
             {
-                Debug.Log("Stage changed");
                 currentStageIndex++;
                 waveController.SetConfig(stageConfigs[currentStageIndex]);
             }
