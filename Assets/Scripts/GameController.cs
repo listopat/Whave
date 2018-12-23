@@ -193,6 +193,9 @@ public class GameController : MonoBehaviour {
         score = 0;
         scoreText.SetText(score.ToString());
 
+        leftBall.ResetCrack();
+        rightBall.ResetCrack();
+
         gameInProgress = true;
         waveController.IsRunning = true;
 
