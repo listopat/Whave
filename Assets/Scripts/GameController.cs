@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using System.IO;
 
 public class GameController : MonoBehaviour {
 
@@ -37,7 +38,13 @@ public class GameController : MonoBehaviour {
     private int currentStageIndex;
     private int stagesCount;
 
-    private void Start () {
+    private string savePath;
+
+    private void Awake () {
+        savePath = Path.Combine(Application.persistentDataPath, "saveFile");
+        Load();
+        UpdateHighScoreText();
+
         stagesCount = stageConfigs.Length;
         gameInProgress = false;
     }
@@ -206,21 +213,30 @@ public class GameController : MonoBehaviour {
 
     public void StopGame()
     {
-        gameInProgress = false;
-        waveController.StopRunning();
-        
-        if (score > highScore)
+        if (gameInProgress)
         {
-            highScore = score;
+            gameInProgress = false;
+            waveController.StopRunning();
+
+            if (score > highScore)
+            {
+                highScore = score;
+                Save();
+            }
+
+            timeSinceDeath = 0.0f;
+            deathScreen.GetComponent<SpriteRenderer>().enabled = true;
+
+            UpdateHighScoreText();
+            highScoreText.enabled = true;
+
+            startText.enabled = true;
         }
+    }
 
-        timeSinceDeath = 0.0f;
-        deathScreen.GetComponent<SpriteRenderer>().enabled = true;
-
+    private void UpdateHighScoreText()
+    {
         highScoreText.SetText("High Score: " + highScore.ToString());
-        highScoreText.enabled = true;
-
-        startText.enabled = true;
     }
 
     public void WaveBlocked()
@@ -234,6 +250,26 @@ public class GameController : MonoBehaviour {
             {
                 currentStageIndex++;
                 waveController.SetConfig(stageConfigs[currentStageIndex]);
+            }
+        }
+    }
+
+    private void Save()
+    {
+        using (
+            var writer = new BinaryWriter(File.Open(savePath, FileMode.Create))
+        ) {
+            writer.Write(highScore);
+        }
+    }
+
+    private void Load()
+    {
+        if (File.Exists(savePath)) {
+            using (
+                var reader = new BinaryReader(File.Open(savePath, FileMode.Open))
+            ) {
+                highScore = reader.ReadInt32();
             }
         }
     }
