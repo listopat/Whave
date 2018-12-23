@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Name: Stage 2
   m_EditorClassIdentifier: 
   patterns:
-  - {fileID: 11400000, guid: d758abd0c7f882a449322df20349a288, type: 2}
-  patternDelay: 3
-  waveDelay: 0.35
+  - {fileID: 11400000, guid: d63d5d78690259a49a0e2501f2791c99, type: 2}
+  - {fileID: 11400000, guid: 7cc2258b21a5d4245af3e808c3ddf2a6, type: 2}
+  - {fileID: 11400000, guid: 94f3c236f58e5414f90446ade227b08f, type: 2}
+  - {fileID: 11400000, guid: 7552693278b9eaf4299a8b29c3a10c87, type: 2}
+  patternDelay: 6.6
+  waveDelay: 0.4
   regularSpeed: 5
-  scoreToActivate: 0
-  randomSpeedMultiplier: 1.8
-  spawnAngle: 20
+  scoreToActivate: 1
+  randomSpeedMultiplier: 1
+  spawnAngle: 40

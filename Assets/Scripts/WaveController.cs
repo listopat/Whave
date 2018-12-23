@@ -105,7 +105,7 @@ public class WaveController : MonoBehaviour {
     private void ConfigureWave(Wave wave, Color color, bool speedIsRandomizable)
     {
         float speed = currentConfig.regularSpeed;
-        if (speedIsRandomizable && Random.Range(0.0f, 1.0f) >= 0.70f)
+        if (speedIsRandomizable && Random.Range(0.0f, 1.0f) >= 0.75f)
         {
             speed *= currentConfig.randomSpeedMultiplier;
         }

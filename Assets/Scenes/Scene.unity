@@ -1245,8 +1245,10 @@ MonoBehaviour:
   rightBall: {fileID: 532018559}
   waveController: {fileID: 1003124627}
   stageConfigs:
-  - {fileID: 11400000, guid: 3ae829ab6a22eba40982ba51460c889c, type: 2}
-  - {fileID: 11400000, guid: 60de0204e78e31e48adceda65fa0c961, type: 2}
+  - {fileID: 11400000, guid: 9895ee8fd079d14499d2347e42567e14, type: 2}
+  - {fileID: 11400000, guid: b58b6bec3b5d8f944b3dda2b476b3d07, type: 2}
+  - {fileID: 11400000, guid: 50290199ac330b24eba04ae38142130f, type: 2}
+  - {fileID: 11400000, guid: e33b13bd4909aa949b0bac94937601d6, type: 2}
   leftBallHit: 97
   rightBalHit: 108
   scoreText: {fileID: 1000816140}
