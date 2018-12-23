@@ -34,7 +34,11 @@ public class GameController : MonoBehaviour {
     private int score = 0;
     private int highScore = 0;
 
+    private int currentStageIndex;
+    private int stagesCount;
+
     void Start () {
+        stagesCount = stageConfigs.Length;
         gameInProgress = false;
     }
 	
@@ -184,6 +188,7 @@ public class GameController : MonoBehaviour {
     public void NewGame()
     {
         waveController.SetConfig(stageConfigs[0]);
+        currentStageIndex = 0;
 
         score = 0;
         scoreText.SetText(score.ToString());
@@ -219,5 +224,15 @@ public class GameController : MonoBehaviour {
     {
         score += 1;
         scoreText.SetText(score.ToString());
+
+        if(currentStageIndex + 1 < stagesCount)
+        {
+            if(score >= stageConfigs[currentStageIndex + 1].scoreToActivate)
+            {
+                Debug.Log("Stage changed");
+                currentStageIndex++;
+                waveController.SetConfig(stageConfigs[currentStageIndex]);
+            }
+        }
     }
 }
