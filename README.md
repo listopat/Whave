@@ -1,7 +1,5 @@
 
-<img src="https://github.com/listopat/Whave/blob/master/Assets/Assets/Whave%20Icon.png" alt="drawing" width="105"/>
-
-Whave is an arcade, silent rhythm game, where you block incoming waves by precise key presses (or screen taps). The game gets progressively more difficult as your score increases - the patterns change and waves approach faster.
+**Whave** is an arcade, silent rhythm game, where you block incoming waves by precise key presses (or screen taps). The game gets progressively more difficult as your score increases - the patterns change and waves approach faster.
 
 To succeed you need to find the rhythm of every pattern.
 
