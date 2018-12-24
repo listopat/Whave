@@ -10,7 +10,7 @@ To succeed you need to find the rhythm of every pattern.
 
 # Web
 
-https://listopat.itch.io/whave
+<a href='https://listopat.itch.io/whave'>listopat.itch.io/whave</a>
 
 # Licence
 Google Play and the Google Play logo are trademarks of Google LLC.
