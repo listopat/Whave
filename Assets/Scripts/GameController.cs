@@ -17,7 +17,6 @@ public class GameController : MonoBehaviour {
 
     [SerializeField] private TextMeshProUGUI scoreText;
 
-    [SerializeField] private GameObject deathScreen;
     [SerializeField] private TextMeshProUGUI highScoreText;
     [SerializeField] private TextMeshProUGUI startText;
 
@@ -31,8 +30,13 @@ public class GameController : MonoBehaviour {
     private int gracePeriod = 1;
     private int leftGracePeriodCounter = 0;
     private int rightGracePeriodCounter = 0;
+    private int leftPreviousScore;
+    private int rightPreviousScore;
 
+    private int leftScore = 0;
+    private int rightScore = 0;
     private int score = 0;
+
     private int highScore = 0;
 
     private int currentStageIndex;
@@ -88,11 +92,13 @@ public class GameController : MonoBehaviour {
         if (Input.GetKeyDown(leftBallHit) && !IsLeftBallHitPressed)
         {
             IsLeftBallHitPressed = true;
+            leftPreviousScore = leftScore;
         }
 
         if (Input.GetKeyDown(rightBalHit) && !IsRightBallHitPressed)
         {
             IsRightBallHitPressed = true;
+            rightPreviousScore = rightScore;
         }
     }
 
@@ -104,11 +110,13 @@ public class GameController : MonoBehaviour {
             if (touch.position.x < Screen.width / 2 && touch.phase == TouchPhase.Began && !IsLeftBallHitPressed)
             {
                 IsLeftBallHitPressed = true;
+                leftPreviousScore = leftScore;
             }
 
             if (touch.position.x > Screen.width / 2 && touch.phase == TouchPhase.Began && !IsRightBallHitPressed)
             {
                 IsRightBallHitPressed = true;
+                rightPreviousScore = rightScore;
             }
         }
     }
@@ -162,6 +170,11 @@ public class GameController : MonoBehaviour {
             {
                 IsLeftBallHitPressed = false;
                 leftGracePeriodCounter = 0;
+                if (leftScore == leftPreviousScore)
+                {
+                    leftScore = leftScore <= 0 ? 0 : leftScore-1;
+                    UpdateScore();
+                }
             }
             else
             {
@@ -175,6 +188,11 @@ public class GameController : MonoBehaviour {
             {
                 IsRightBallHitPressed = false;
                 rightGracePeriodCounter = 0;
+                if (rightScore == rightPreviousScore)
+                {
+                    rightScore = rightScore <= 0 ? 0 : rightScore-1;
+                    UpdateScore();
+                }
             }
             else
             {
@@ -197,8 +215,8 @@ public class GameController : MonoBehaviour {
         waveController.SetConfig(stageConfigs[0]);
         currentStageIndex = 0;
 
-        score = 0;
-        scoreText.SetText(score.ToString());
+        leftScore = rightScore = 0;
+        UpdateScore();
 
         leftBall.ResetCrack();
         rightBall.ResetCrack();
@@ -208,7 +226,6 @@ public class GameController : MonoBehaviour {
 
         highScoreText.enabled = false;
         startText.enabled = false;
-        deathScreen.GetComponent<SpriteRenderer>().enabled = false;
     }
 
     public void StopGame()
@@ -225,7 +242,6 @@ public class GameController : MonoBehaviour {
             }
 
             timeSinceDeath = 0.0f;
-            deathScreen.GetComponent<SpriteRenderer>().enabled = true;
 
             UpdateHighScoreText();
             highScoreText.enabled = true;
@@ -239,10 +255,17 @@ public class GameController : MonoBehaviour {
         highScoreText.SetText("High Score: " + highScore.ToString());
     }
 
-    public void WaveBlocked()
+    public void WaveBlocked(bool isLeft)
     {
-        score += 1;
-        scoreText.SetText(score.ToString());
+        if (isLeft)
+        {
+            leftScore++;
+        } else
+        {
+            rightScore++;
+        }
+
+        UpdateScore();
 
         if(currentStageIndex + 1 < stagesCount)
         {
@@ -252,6 +275,12 @@ public class GameController : MonoBehaviour {
                 waveController.SetConfig(stageConfigs[currentStageIndex]);
             }
         }
+    }
+
+    private void UpdateScore()
+    {
+        score = leftScore + rightScore;
+        scoreText.SetText(score.ToString());
     }
 
     private void Save()

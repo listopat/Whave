@@ -33,7 +33,7 @@ public class BallRing : MonoBehaviour {
             hitEffect.SetColorForParticles(wave.GetCurrentColor());
             hitParticleSystem.Play();
             wave.DestroyWave();
-            game.WaveBlocked();
+            game.WaveBlocked(isLeft);
         }
         else if (!isLeft && game.IsRightBallHitPressed)
         {
@@ -41,7 +41,7 @@ public class BallRing : MonoBehaviour {
             hitEffect.SetColorForParticles(wave.GetCurrentColor());
             hitParticleSystem.Play();
             wave.DestroyWave();
-            game.WaveBlocked();
+            game.WaveBlocked(isLeft);
         }
     }
 }
