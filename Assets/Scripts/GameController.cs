@@ -82,7 +82,7 @@ public class GameController : MonoBehaviour {
         MobileGameUpdate();
         #endif
 
-        #if UNITY_EDITOR
+        #if UNITY_WEBGL
         DesktopGameUpdate();
         #endif
     }
@@ -127,7 +127,7 @@ public class GameController : MonoBehaviour {
         MobileDeathScreenUpdate();
         #endif
 
-        #if UNITY_EDITOR
+        #if UNITY_WEBGL
         DesktopDeathScreenUpdate();
         #endif
     }
