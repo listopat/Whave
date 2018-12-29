@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ee817f2f7dfd014dbbae3ce41152a75, type: 3}
-  m_Name: Warmup Pattern 2
+  m_Name: Warmup Pattern 4
   m_EditorClassIdentifier: 
   waves:
   - offset: 0
     side: 1
   - offset: 1
-    side: 0
+    side: 1
   randomizableSpeed: 0

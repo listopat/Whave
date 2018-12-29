@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -19,6 +20,6 @@ MonoBehaviour:
   patternDelay: 3.5
   waveDelay: 0.25
   regularSpeed: 6.5
-  scoreToActivate: 80
+  scoreToActivate: 95
   randomSpeedMultiplier: 1.2
   spawnAngle: 50
