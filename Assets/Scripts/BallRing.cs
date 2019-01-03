@@ -27,15 +27,7 @@ public class BallRing : MonoBehaviour {
 
     private void CheckInput(Collider2D other)
     {
-        if (isLeft && game.IsLeftBallHitPressed)
-        {
-            Wave wave = other.GetComponent<Wave>();
-            hitEffect.SetColorForParticles(wave.GetCurrentColor());
-            hitParticleSystem.Play();
-            wave.DestroyWave();
-            game.WaveBlocked(isLeft);
-        }
-        else if (!isLeft && game.IsRightBallHitPressed)
+        if ((isLeft && game.IsLeftBallHitPressed) || (!isLeft && game.IsRightBallHitPressed))
         {
             Wave wave = other.GetComponent<Wave>();
             hitEffect.SetColorForParticles(wave.GetCurrentColor());
