@@ -53,7 +53,7 @@ public class GameController : MonoBehaviour {
         gameInProgress = false;
     }
 	
-	private void Update () {
+    private void Update () {
         #if UNITY_ANDROID
         CheckForQuit();
         #endif
