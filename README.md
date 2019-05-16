@@ -8,4 +8,4 @@
 
 # Web
 
-<a href='https://listopat.itch.io/whave'>listopat.itch.io/whave</a>
+<a href='https://listopat.itch.io/whave'>itch.io</a>
